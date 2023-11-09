@@ -7,9 +7,9 @@ class User < ApplicationRecord
   with_options presence: true do
     validates :nickname, uniqueness: true
     validates :family_name,
-              format: { with: /\A([ぁ-んァ-ン一-龥々ヴー]\p{Han})+\z/ }
+              format: { with: /\A[ぁ-んァ-ヶ一-龥々ー]+\z/ }
     validates :first_name,
-              format: { with: /\A([ぁ-んァ-ン一-龥々ヴー]\p{Han})+\z/ }
+              format: { with: /\A[ぁ-んァ-ヶ一-龥々ー]+\z/ }
     validates :family_name_kana,
               format: { with: /\A([ァ-ヴー])+\z/ }
     validates :first_name_kana,

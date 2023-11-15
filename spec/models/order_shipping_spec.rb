@@ -33,6 +33,11 @@ RSpec.describe OrderShipping, type: :model do
         @order_shipping.valid?
         expect(@order_shipping.errors.full_messages).to include("Prefecture can't be blank")
       end
+      it 'prefectureを---を選択していると購入されない' do
+        @order_shipping.prefecture_id = 1
+        @order_shipping.valid?
+        expect(@order_shipping.errors.full_messages).to include("Prefecture can't be blank")
+      end
       it 'cityが空だと購入されない' do
         @order_shipping.city = ''
         @order_shipping.valid?
@@ -48,15 +53,15 @@ RSpec.describe OrderShipping, type: :model do
         @order_shipping.valid?
         expect(@order_shipping.errors.full_messages).to include("Phone number can't be blank")
       end
-      it 'phonenumberが10桁以上11桁以内の半角数値でないと購入されない' do
+      it 'phonenumberが12桁以上の半角数値だと購入されない' do
         @order_shipping.phone_number = '123456789012'
         @order_shipping.valid?
         expect(@order_shipping.errors.full_messages).to include('Phone number is invalid. Should be 10 to 11 digits')
       end
-      it 'phonenumberが数字のみでないと購入されない' do
-        @order_shipping.phone_number = 'abcdefghij'
+      it 'phonenumberが9桁以下の半角数値だと購入されない' do
+        @order_shipping.phone_number = '12345678'
         @order_shipping.valid?
-        expect(@order_shipping.errors.full_messages).to include('Phone number is invalid. Input only number')
+        expect(@order_shipping.errors.full_messages).to include('Phone number is invalid. Should be 10 to 11 digits')
       end
       it 'userが紐づいてないと出品できない' do
         @order_shipping.user_id = nil

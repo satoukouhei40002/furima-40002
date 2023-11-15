@@ -12,7 +12,6 @@ class OrderShipping
     validates :address
     validates :phone_number, format: { with: /\A\d{10,11}\z/, message: 'is invalid. Should be 10 to 11 digits' }
   end
-  validates :phone_number, format: { with: /\A\d+\z/, message: 'is invalid. Input only number' }
 
   def save
     order = Order.create(user_id:, item_id:)
